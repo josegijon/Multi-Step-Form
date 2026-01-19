@@ -8,4 +8,9 @@ interface FormData {
     username: string;
     password: string;
     confirmPassword: string;
+
+    // Step 3
+    interests: string[];
+    newsletter: boolean;
+    theme: 'light' | 'dark';
 }
