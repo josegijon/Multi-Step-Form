@@ -1,13 +1,19 @@
 @import "tailwindcss";
+@import './styles/fonts.css';
 
 @theme {
-    --breakpoint-4xs: 400px;
-    --breakpoint-3xs: 450px;
-    --breakpoint-2xs: 500px;
-    --breakpoint-xs: 550px;
+  /* Brakpoints */
+  --breakpoint-4xs: 400px;
+  --breakpoint-3xs: 450px;
+  --breakpoint-2xs: 500px;
+  --breakpoint-xs: 550px;
 
-    /* colors */
+  /* Colors */
+  --color-black-01: #111418;
+  --color-blue-primary: #2b8cee;
 
+  /* Fonts */
+  --font-inter: "Inter";
 }
 
 /* .bg-gradient {
