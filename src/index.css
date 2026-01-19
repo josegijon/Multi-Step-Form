@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+    --breakpoint-4xs: 400px;
+    --breakpoint-3xs: 450px;
+    --breakpoint-2xs: 500px;
+    --breakpoint-xs: 550px;
+
+    /* colors */
+
+}
+
+/* .bg-gradient {
+  @apply bg-primary min-h-screen flex items-center justify-center text-[#f1f5f9];
+} */
