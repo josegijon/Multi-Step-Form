@@ -3,4 +3,9 @@ interface FormData {
     fullName: string;
     email: string;
     birthDate: string;
+
+    // Step 2 
+    username: string;
+    password: string;
+    confirmPassword: string;
 }
