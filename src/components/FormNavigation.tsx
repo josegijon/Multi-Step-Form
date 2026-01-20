@@ -1,7 +1,7 @@
 
 export const FormNavigation = () => {
     return (
-        <div className="flex justify-between items-center gap-2">
+        <div className="flex justify-between items-center gap-2 w-full max-w-200 mx-auto">
             <button className="flex items-center gap-2 px-6 py-3 rounded-lg text-black-02 border border-[#e5e7eb] bg-white font-medium transition-colors cursor-pointer
             hover:bg-slate-50">
                 O Previous
