@@ -1,7 +1,7 @@
 
 export const Step1Personal = () => {
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8">
+        <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8 max-w-200 mx-auto w-full">
             <div className="flex flex-col gap-2">
                 <h1 className="text-black-01 text-[32px] font-bold leading-tight tracking-tight">
                     Personal Info
@@ -59,7 +59,7 @@ export const Step1Personal = () => {
                     htmlFor="birthdate"
                 >
                     <span className="text-black-01 text-sm font-semibold">
-                        Email
+                        Birth Date
                     </span>
                     <input
                         id="birthdate"
