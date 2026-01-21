@@ -21,7 +21,7 @@ export const MultiStepForm = () => {
     return (
         <main className="font-inter bg-[#f3f4f6] min-h-screen flex flex-col gap-4 pb-8">
             <Header />
-            <ProgressBar />
+            <ProgressBar step={currentStep} />
             {steps[currentStep - 1]}
             <FormNavigation currentStep={currentStep} onPrevious={handlePreviousStep} onNext={handleNextStep} />
         </main>
