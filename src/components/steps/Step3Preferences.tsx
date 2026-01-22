@@ -1,5 +1,22 @@
+import type { FormDataType } from "../../types/form.types";
 
-export const Step3Preferences = () => {
+interface Props {
+    data: FormDataType;
+    onChange: (field: keyof FormDataType, value: any) => void;
+}
+
+export const Step3Preferences = ({ data, onChange }: Props) => {
+
+    const handleInterestToggle = (interest: string) => {
+        const currentInterest = data.interests || [];
+
+        if (currentInterest.includes(interest)) {
+            onChange('interests', currentInterest.filter(i => i !== interest));
+        } else {
+            onChange('interests', [...currentInterest, interest]);
+        }
+    };
+
     return (
         <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8 w-full max-w-200 mx-auto">
             <div className="flex flex-col gap-2">
@@ -29,6 +46,8 @@ export const Step3Preferences = () => {
                             className="w-5 h-5 rounded border-gray-300 bg-white text-blue-primary
                             focus:ring-blue-primary focus:ring-offset-white
                             accent-blue-primary"
+                            checked={data.interests?.includes('Design')}
+                            onChange={() => handleInterestToggle('Design')}
                         />
                         <span className="text-slate-700 group-hover:text-black-01 font-medium">
                             Design
@@ -46,6 +65,8 @@ export const Step3Preferences = () => {
                             className="w-5 h-5 rounded border-gray-300 bg-white text-blue-primary
                             focus:ring-blue-primary focus:ring-offset-white
                             accent-blue-primary"
+                            checked={data.interests?.includes('Development')}
+                            onChange={() => handleInterestToggle('Development')}
                         />
                         <span className="text-slate-700 group-hover:text-black-01 font-medium">
                             Development
@@ -63,6 +84,8 @@ export const Step3Preferences = () => {
                             className="w-5 h-5 rounded border-gray-300 bg-white text-blue-primary
                             focus:ring-blue-primary focus:ring-offset-white
                             accent-blue-primary"
+                            checked={data.interests?.includes('Marketing')}
+                            onChange={() => handleInterestToggle('Marketing')}
                         />
                         <span className="text-slate-700 group-hover:text-black-01 font-medium">
                             Marketing
@@ -80,6 +103,8 @@ export const Step3Preferences = () => {
                             className="w-5 h-5 rounded border-gray-300 bg-white text-blue-primary
                             focus:ring-blue-primary focus:ring-offset-white
                             accent-blue-primary"
+                            checked={data.interests?.includes('Business')}
+                            onChange={() => handleInterestToggle('Business')}
                         />
                         <span className="text-slate-700 group-hover:text-black-01 font-medium">
                             Business
@@ -116,6 +141,8 @@ export const Step3Preferences = () => {
                                 type="checkbox"
                                 id="newsletter"
                                 className="sr-only peer"
+                                checked={data.newsletter}
+                                onChange={(e) => onChange('newsletter', e.target.checked)}
                             />
                             <div
                                 className="w-11 h-6 bg-gray-300 rounded-full 
@@ -149,12 +176,13 @@ export const Step3Preferences = () => {
                     <select
                         name=""
                         id=""
-                        className="bg-white border border-gray-300 text-[#1F2937] text-sm rounded-lg block w-full pl-10 p-3.5 appearance-none outline-none transition-all cursor-pointer
+                        className="bg-white border border-gray-300 text-black-02 text-sm rounded-lg block w-full pl-10 p-3.5 appearance-none outline-none transition-all cursor-pointer
                         focus:ring-blue-primary focus:border-blue-primary"
+                        value={data.theme}
+                        onChange={(e) => onChange('theme', e.target.value)}
                     >
                         <option value="light">Light</option>
                         <option value="dark">Dark</option>
-                        <option value="system">System</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
                         <span>

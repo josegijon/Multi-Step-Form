@@ -6,16 +6,18 @@ import { Step3Preferences } from "./steps/Step3Preferences"
 import { Step4Summary } from "./steps/Step4Summary"
 import { Header } from './Header';
 import { useFormNavigation } from "../hooks/useFormNavigation"
+import { useMultiStepForm } from "../hooks/useMultiStepForm"
 
 export const MultiStepForm = () => {
+    const { formData, updateFormData } = useMultiStepForm();
 
     const { currentStep, handlePreviousStep, handleNextStep } = useFormNavigation();
 
     const steps = [
-        <Step1Personal />,
-        <Step2Professional />,
-        <Step3Preferences />,
-        <Step4Summary />
+        <Step1Personal data={formData} onChange={updateFormData} />,
+        <Step2Professional data={formData} onChange={updateFormData} />,
+        <Step3Preferences data={formData} onChange={updateFormData} />,
+        <Step4Summary data={formData} />
     ]
 
     return (

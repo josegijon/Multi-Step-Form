@@ -1,5 +1,11 @@
+import type { FormDataType } from "../../types/form.types";
 
-export const Step2Professional = () => {
+interface Props {
+    data: FormDataType;
+    onChange: (field: keyof FormDataType, value: any) => void;
+}
+
+export const Step2Professional = ({ data, onChange }: Props) => {
     return (
         <div className="px-4">
             <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8 w-full max-w-200 mx-auto">
@@ -32,6 +38,9 @@ export const Step2Professional = () => {
                         placeholder:text-[#9ca3af]
                         focus:outline-none focus:ring-2 focus:ring-blue-primary/50 focus:border-blue-primary"
                                 placeholder="Enter unique username"
+                                required
+                                value={data.username}
+                                onChange={(e) => onChange('username', e.target.value)}
                             />
                         </div>
                     </label>
@@ -52,6 +61,9 @@ export const Step2Professional = () => {
                         placeholder:text-[#9ca3af]
                         focus:outline-none focus:ring-2 focus:ring-blue-primary/50 focus:border-blue-primary"
                                 placeholder="********"
+                                required
+                                value={data.password}
+                                onChange={(e) => onChange('password', e.target.value)}
                             />
 
                             <div className="absolute right-3 flex items-center justify-center gap-2">
@@ -78,6 +90,9 @@ export const Step2Professional = () => {
                         placeholder:text-[#9ca3af]
                         focus:outline-none focus:ring-2 focus:ring-blue-primary/50 focus:border-blue-primary"
                                 placeholder="********"
+                                required
+                                value={data.confirmPassword}
+                                onChange={(e) => onChange('confirmPassword', e.target.value)}
                             />
 
                             <div className="absolute right-3 flex items-center justify-center gap-2">

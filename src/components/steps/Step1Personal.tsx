@@ -1,5 +1,11 @@
+import type { FormDataType } from "../../types/form.types";
 
-export const Step1Personal = () => {
+interface Props {
+    data: FormDataType;
+    onChange: (field: keyof FormDataType, value: any) => void;
+}
+
+export const Step1Personal = ({ data, onChange }: Props) => {
     return (
         <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8 max-w-200 mx-auto w-full">
             <div className="flex flex-col gap-2">
@@ -31,6 +37,9 @@ export const Step1Personal = () => {
                         placeholder:text-[#9ca3af]
                         focus:outline-none focus:ring-2 focus:ring-blue-primary/50 focus:border-blue-primary"
                             placeholder="e.g., Jane Doe"
+                            value={data.fullName}
+                            onChange={(e) => onChange('fullName', e.target.value)}
+                            required
                         />
                     </div>
                 </label>
@@ -50,6 +59,9 @@ export const Step1Personal = () => {
                         placeholder:text-[#9ca3af]
                         focus:outline-none focus:ring-2 focus:ring-blue-primary/50 focus:border-blue-primary"
                         placeholder="new@email.com"
+                        required
+                        value={data.email}
+                        onChange={(e) => onChange('email', e.target.value)}
                     />
                 </label>
 
@@ -67,6 +79,9 @@ export const Step1Personal = () => {
                         className="w-full h-12 px-4 rounded-md border border-[#dbe0e6] bg-white text-black-01 text-base transition-all peer 
                         placeholder:text-[#9ca3af]
                         focus:outline-none focus:ring-2 focus:ring-blue-primary/50 focus:border-blue-primary"
+                        required
+                        value={data.birthDate}
+                        onChange={(e) => onChange('birthDate', e.target.value)}
                     />
                 </label>
             </form>
