@@ -128,6 +128,7 @@ export const Step4Summary = ({ data }: Props) => {
                         type="checkbox"
                         id="terms"
                         className="size-5 rounded border-slate-300 text-blue-primary focus:ring-blue-primary focus:ring-offset-2"
+                        required
                     />
                 </div>
                 <label
