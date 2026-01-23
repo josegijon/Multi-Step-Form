@@ -37,6 +37,8 @@ export const Step1Personal = ({ data, onChange, touched, handleBlur }: Props) =>
                         <input
                             id="fullname"
                             type="text"
+                            value={data.fullName}
+                            onChange={(e) => onChange('fullName', e.target.value)}
                             onBlur={() => handleBlur('fullName')}
                             className={`w-full h-12 px-4 rounded-md border bg-white text-black-01 text-base transition-all
                             placeholder:text-[#9ca3af]
@@ -47,8 +49,6 @@ export const Step1Personal = ({ data, onChange, touched, handleBlur }: Props) =>
                                 }
                         `}
                             placeholder="e.g., Jane Doe"
-                            value={data.fullName}
-                            onChange={(e) => onChange('fullName', e.target.value)}
                             required
                         />
                         {touched.fullName && getFieldError('fullName', data.fullName) && (
