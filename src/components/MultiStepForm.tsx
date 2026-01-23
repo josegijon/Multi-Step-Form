@@ -11,7 +11,7 @@ import { useMultiStepForm } from "../hooks/useMultiStepForm"
 export const MultiStepForm = () => {
     const { formData, updateFormData } = useMultiStepForm();
 
-    const { currentStep, handlePreviousStep, handleNextStep } = useFormNavigation();
+    const { currentStep, handlePreviousStep, handleNextStep, canProceedToNextStep } = useFormNavigation({ data: formData });
 
     const steps = [
         <Step1Personal data={formData} onChange={updateFormData} />,

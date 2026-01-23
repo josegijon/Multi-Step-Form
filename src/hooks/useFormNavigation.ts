@@ -1,8 +1,25 @@
 import { useState } from "react";
 import { TOTAL_STEPS } from "../constants/formSteps";
+import { validateStep1, validateStep2 } from "../utils/validation";
+import type { FormDataType } from "../types/form.types";
 
-export const useFormNavigation = () => {
+interface Props {
+    data: FormDataType;
+}
+
+export const useFormNavigation = ({ data }: Props) => {
     const [currentStep, setCurrentStep] = useState(1);
+
+    const canProceedToNextStep = (): boolean => {
+        switch (currentStep) {
+            case 1:
+                return validateStep1(data);
+            case 2:
+                return validateStep2(data);
+            default:
+                return true;
+        }
+    }
 
     const handlePreviousStep = () => {
         setCurrentStep((prev) =>
@@ -11,6 +28,11 @@ export const useFormNavigation = () => {
     };
 
     const handleNextStep = () => {
+        if (!canProceedToNextStep()) {
+            console.warn('Cannot proceed: validation failed');
+            return;
+        }
+
         setCurrentStep((prev) =>
             prev < TOTAL_STEPS ? prev + 1 : prev
         );
@@ -19,6 +41,7 @@ export const useFormNavigation = () => {
     return {
         currentStep,
 
+        canProceedToNextStep,
         handlePreviousStep,
         handleNextStep
     }
