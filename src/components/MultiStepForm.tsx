@@ -7,15 +7,28 @@ import { Step4Summary } from "./steps/Step4Summary"
 import { Header } from './Header';
 import { useFormNavigation } from "../hooks/useFormNavigation"
 import { useMultiStepForm } from "../hooks/useMultiStepForm"
+import { useTouched } from "../hooks/useTouched"
 
 export const MultiStepForm = () => {
     const { formData, updateFormData } = useMultiStepForm();
 
     const { currentStep, handlePreviousStep, handleNextStep, canProceedToNextStep } = useFormNavigation({ data: formData });
 
+    const { touched, handleBlur } = useTouched();
+
     const steps = [
-        <Step1Personal data={formData} onChange={updateFormData} />,
-        <Step2Professional data={formData} onChange={updateFormData} />,
+        <Step1Personal
+            data={formData}
+            onChange={updateFormData}
+            touched={touched}
+            handleBlur={handleBlur}
+        />,
+        <Step2Professional
+            data={formData}
+            onChange={updateFormData}
+            touched={touched}
+            handleBlur={handleBlur}
+        />,
         <Step3Preferences data={formData} onChange={updateFormData} />,
         <Step4Summary data={formData} />
     ]

@@ -3,6 +3,8 @@ import type { FormDataType } from "../../types/form.types";
 interface Props {
     data: FormDataType;
     onChange: (field: keyof FormDataType, value: any) => void;
+    touched: Record<string, boolean>;
+    handleBlur: (field: keyof FormDataType) => void;
 }
 
 export const Step2Professional = ({ data, onChange }: Props) => {

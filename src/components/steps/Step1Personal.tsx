@@ -1,19 +1,14 @@
-import { useState } from "react";
 import type { FormDataType } from "../../types/form.types";
 import { getFieldError } from "../../utils/validation";
 
 interface Props {
     data: FormDataType;
     onChange: (field: keyof FormDataType, value: any) => void;
+    touched: Record<string, boolean>;
+    handleBlur: (field: keyof FormDataType) => void;
 }
 
-export const Step1Personal = ({ data, onChange }: Props) => {
-
-    const [touched, setTouched] = useState<Record<string, boolean>>({});
-
-    const handleBlur = (field: keyof FormDataType) => {
-        setTouched(prev => ({ ...prev, [field]: true }));
-    };
+export const Step1Personal = ({ data, onChange, touched, handleBlur }: Props) => {
 
     return (
         <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8 max-w-200 mx-auto w-full">
