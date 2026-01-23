@@ -1,5 +1,7 @@
+import { Eye, EyeClosed } from "lucide-react";
 import type { FormDataType } from "../../types/form.types";
 import { getFieldError } from "../../utils/validation";
+import { useState } from "react";
 
 interface Props {
     data: FormDataType;
@@ -9,6 +11,19 @@ interface Props {
 }
 
 export const Step2Professional = ({ data, onChange, touched, handleBlur }: Props) => {
+
+    const [visibleFields, setVisibleFields] = useState({
+        password: false,
+        confirmPassword: false,
+    });
+
+    const toggleVisibility = (field: 'password' | 'confirmPassword') => {
+        setVisibleFields(prev => ({
+            ...prev,
+            [field]: !prev[field],
+        }));
+    };
+
     return (
         <div className="px-4">
             <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8 w-full max-w-200 mx-auto">
@@ -70,7 +85,7 @@ export const Step2Professional = ({ data, onChange, touched, handleBlur }: Props
                             <div className="relative flex w-full items-center rounded-lg group">
                                 <input
                                     id="password"
-                                    type="password"
+                                    type={visibleFields.password ? 'text' : 'password'}
                                     value={data.password}
                                     onChange={(e) => onChange('password', e.target.value)}
                                     onBlur={() => handleBlur('password')}
@@ -87,8 +102,15 @@ export const Step2Professional = ({ data, onChange, touched, handleBlur }: Props
 
 
                                 <div className="absolute right-3 flex items-center justify-center gap-2">
-                                    <button type="button">
-                                        {/* Boton ojo */}
+                                    <button
+                                        type="button"
+                                        className="cursor-pointer"
+                                        onClick={() => toggleVisibility('password')}
+                                    >
+                                        {visibleFields.password
+                                            ? <EyeClosed size={18} />
+                                            : <Eye size={18} />
+                                        }
                                     </button>
                                 </div>
                             </div>
@@ -109,10 +131,10 @@ export const Step2Professional = ({ data, onChange, touched, handleBlur }: Props
                             Confirm Password
                         </span>
                         <div className="flex flex-col gap-1">
-                            <div className="relative flex flex-col w-full items-center rounded-lg group">
+                            <div className="relative flex flex-col w-full items-center justify-center rounded-lg group">
                                 <input
                                     id="confirm-password"
-                                    type="password"
+                                    type={visibleFields.confirmPassword ? 'text' : 'password'}
                                     value={data.confirmPassword}
                                     onChange={(e) => onChange('confirmPassword', e.target.value)}
                                     onBlur={() => handleBlur('confirmPassword')}
@@ -127,8 +149,15 @@ export const Step2Professional = ({ data, onChange, touched, handleBlur }: Props
                                     required
                                 />
                                 <div className="absolute right-3 flex items-center justify-center gap-2">
-                                    <button type="button">
-                                        {/* Boton ojo */}
+                                    <button
+                                        type="button"
+                                        className="cursor-pointer"
+                                        onClick={() => toggleVisibility('confirmPassword')}
+                                    >
+                                        {visibleFields.confirmPassword
+                                            ? <EyeClosed size={18} />
+                                            : <Eye size={18} />
+                                        }
                                     </button>
                                 </div>
                             </div>
