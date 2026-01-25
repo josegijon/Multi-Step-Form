@@ -49,18 +49,20 @@ export const MultiStepForm = () => {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.35, ease: "easeOut" }}
+                        className="flex flex-col gap-4"
                     >
                         {steps[currentStep - 1]}
+
+                        <FormNavigation
+                            currentStep={currentStep}
+                            canProceedToNext={canProceedToNextStep()}
+                            onPrevious={handlePreviousStep}
+                            onNext={handleNextStep}
+                        />
                     </motion.div>
                 </AnimatePresence>
             </section>
 
-            <FormNavigation
-                currentStep={currentStep}
-                canProceedToNext={canProceedToNextStep()}
-                onPrevious={handlePreviousStep}
-                onNext={handleNextStep}
-            />
         </main>
     )
 }
