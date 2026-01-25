@@ -31,7 +31,7 @@ export const MultiStepForm = () => {
             handleBlur={handleBlur}
         />,
         <Step3Preferences data={formData} onChange={updateFormData} />,
-        <Step4Summary data={formData} />
+        <Step4Summary data={formData} onChange={updateFormData} />
     ]
 
     return (

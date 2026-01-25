@@ -13,4 +13,7 @@ export interface FormDataType {
     interests: string[];
     newsletter: boolean;
     theme: 'light' | 'dark';
+
+    // Step 4
+    terms: boolean;
 }
