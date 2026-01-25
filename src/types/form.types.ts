@@ -1,4 +1,4 @@
-interface FormData {
+export interface FormDataType {
     // Step 1
     fullName: string;
     email: string;

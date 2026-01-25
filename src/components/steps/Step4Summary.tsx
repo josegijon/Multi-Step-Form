@@ -1,5 +1,15 @@
+import type { FormDataType } from "../../types/form.types"
 
-export const Step4Summary = () => {
+interface Props {
+    data: FormDataType;
+}
+
+export const Step4Summary = ({ data }: Props) => {
+
+    const isNewsletterEnabled = data.newsletter;
+    const newsletterStatus = isNewsletterEnabled ? 'Enabled' : 'Disabled';
+    const newletterDotColor = isNewsletterEnabled ? 'bg-emerald-500' : 'bg-red-500'
+
     return (
         <div className="flex flex-col gap-8 w-full max-w-200 mx-auto">
             <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8">
@@ -26,7 +36,7 @@ export const Step4Summary = () => {
                                 Full Name
                             </p>
                             <p className="text-black-02 text-base font-medium">
-                                Pillamos nombre
+                                {data.fullName}
                             </p>
                         </div>
 
@@ -35,7 +45,7 @@ export const Step4Summary = () => {
                                 Email Address
                             </p>
                             <p className="text-black-02 text-base font-medium">
-                                email@email.com
+                                {data.email}
                             </p>
                         </div>
 
@@ -44,7 +54,7 @@ export const Step4Summary = () => {
                                 Birth date
                             </p>
                             <p className="text-black-02 text-base font-medium">
-                                may 12, 1999
+                                {data.birthDate}
                             </p>
                         </div>
 
@@ -53,7 +63,7 @@ export const Step4Summary = () => {
                                 Username
                             </p>
                             <p className="text-black-02 text-base font-medium">
-                                @usuario
+                                {data.username}
                             </p>
                         </div>
                     </div>
@@ -72,15 +82,15 @@ export const Step4Summary = () => {
                                 Interests
                             </p>
                             <div className="flex flex-wrap gap-2 mt-2">
-                                <span className="px-2.5 py-1 bg-blue-primary/10 text-blue-primary text-xs font-semibold rounded">
-                                    Elegido
-                                </span>
-                                <span className="px-2.5 py-1 bg-blue-primary/10 text-blue-primary text-xs font-semibold rounded">
-                                    Elegido
-                                </span>
-                                <span className="px-2.5 py-1 bg-blue-primary/10 text-blue-primary text-xs font-semibold rounded">
-                                    Elegido
-                                </span>
+                                {data.interests?.map((element) => (
+                                    <span
+                                        key={element}
+                                        className="px-2.5 py-1 bg-blue-primary/10 text-blue-primary text-xs font-semibold rounded"
+                                    >
+                                        {element}
+                                    </span>
+                                ))
+                                }
                             </div>
                         </div>
 
@@ -88,11 +98,11 @@ export const Step4Summary = () => {
                             <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
                                 Preferred Theme
                             </p>
-                            <div className="flex items-center gap-2 text-black-02 text-base font-medium">
+                            <div className="flex items-center gap-2 text-black-02 text-base font-medium capitalize">
                                 <span>
-                                    {/* Icono */}O
+                                    {/* Icono */}
                                 </span>
-                                Light Mode
+                                {data.theme} Mode
                             </div>
                         </div>
 
@@ -101,8 +111,11 @@ export const Step4Summary = () => {
                                 Newsletter Status
                             </p>
                             <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                <p className="text-black-02 text-base font-medium">Enabled</p>
+                                <span className={`w-2 h-2 rounded-full ${newletterDotColor}`}
+                                ></span>
+                                <p className="text-black-02 text-base font-medium">
+                                    {newsletterStatus}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -115,6 +128,7 @@ export const Step4Summary = () => {
                         type="checkbox"
                         id="terms"
                         className="size-5 rounded border-slate-300 text-blue-primary focus:ring-blue-primary focus:ring-offset-2"
+                        required
                     />
                 </div>
                 <label
@@ -124,6 +138,6 @@ export const Step4Summary = () => {
                     I confirm that the information provided above is accurate. I have read and agree to the <a className="text-blue-primary font-medium hover:underline" href="#">Terms of Service</a> and <a className="text-blue-primary font-medium hover:underline" href="#">Privacy Policy</a>.
                 </label>
             </div>
-        </div>
+        </div >
     )
 }
