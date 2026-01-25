@@ -2,9 +2,10 @@ import type { FormDataType } from "../../types/form.types"
 
 interface Props {
     data: FormDataType;
+    onChange: (field: keyof FormDataType, value: any) => void;
 }
 
-export const Step4Summary = ({ data }: Props) => {
+export const Step4Summary = ({ data, onChange }: Props) => {
 
     const isNewsletterEnabled = data.newsletter;
     const newsletterStatus = isNewsletterEnabled ? 'Enabled' : 'Disabled';
@@ -128,6 +129,8 @@ export const Step4Summary = ({ data }: Props) => {
                         type="checkbox"
                         id="terms"
                         className="size-5 rounded border-slate-300 text-blue-primary focus:ring-blue-primary focus:ring-offset-2"
+                        checked={data.terms}
+                        onChange={(e) => onChange('terms', e.target.checked)}
                         required
                     />
                 </div>

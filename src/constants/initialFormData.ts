@@ -10,5 +10,6 @@ export const initialFormData: FormDataType = {
     confirmPassword: "",
     interests: [],
     newsletter: false,
-    theme: 'light'
+    theme: 'light',
+    terms: false
 }

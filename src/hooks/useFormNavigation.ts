@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TOTAL_STEPS } from "../constants/formSteps";
-import { validateStep1, validateStep2 } from "../utils/validation";
+import { validateStep1, validateStep2, validateStep4 } from "../utils/validation";
 import type { FormDataType } from "../types/form.types";
 import { STORAGE_STEP_KEY } from "../constants/storageKeys";
 
@@ -45,6 +45,8 @@ export const useFormNavigation = ({ data }: Props) => {
                 return validateStep1(data);
             case 2:
                 return validateStep2(data);
+            case 4:
+                return validateStep4(data);
             default:
                 return true;
         }

@@ -50,7 +50,12 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
                 {primaryLabel}
 
                 {isLastStep
-                    ? <div className="bg-white rounded-full p-1 text-blue-primary">
+                    ? <div className={`bg-white rounded-full p-1 
+                    ${canProceedToNext
+                            ? 'text-blue-primary'
+                            : 'text-gray-400'
+                        }
+                    `}>
                         <Check size={12} />
                     </div>
                     : <ArrowRight size={18} />

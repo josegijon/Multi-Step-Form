@@ -53,6 +53,12 @@ export const validateStep2 = (data: FormDataType): boolean => {
     );
 };
 
+export const validateStep4 = (data: FormDataType): boolean => {
+    return (
+        data.terms
+    );
+};
+
 // Error message
 export const getFieldError = (field: keyof FormDataType, value: any, formData?: FormDataType): string | null => {
     switch (field) {
