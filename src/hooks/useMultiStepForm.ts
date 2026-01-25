@@ -10,6 +10,13 @@ export const useMultiStepForm = () => {
         return savedData ? JSON.parse(savedData) : initialFormData;
     });
 
+    useEffect(() => {
+        localStorage.setItem(
+            STORAGE_KEYS.FORM_DATA,
+            JSON.stringify(formData)
+        );
+    }, [formData])
+
     const updateFormData = (field: keyof FormDataType, value: any) => {
         setFormData(prev => ({
             ...prev,
@@ -17,12 +24,7 @@ export const useMultiStepForm = () => {
         }));
     };
 
-    useEffect(() => {
-        localStorage.setItem(
-            STORAGE_KEYS.FORM_DATA,
-            JSON.stringify(formData)
-        );
-    }, [formData])
+
 
 
     return {

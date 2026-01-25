@@ -1,15 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TOTAL_STEPS } from "../constants/formSteps";
 import { validateStep1, validateStep2 } from "../utils/validation";
 import type { FormDataType } from "../types/form.types";
+import { STORAGE_STEP_KEY } from "../constants/storageKeys";
 
 interface Props {
     data: FormDataType;
 }
 
 export const useFormNavigation = ({ data }: Props) => {
-    const [currentStep, setCurrentStep] = useState(1);
+
+    const getMaxValidStep = (): number => {
+        if (!validateStep1(data)) return 1;
+        if (!validateStep2(data)) return 2;
+        return TOTAL_STEPS;
+    };
+
+    const [currentStep, setCurrentStep] = useState(() => {
+        const storedStep = Number(localStorage.getItem(STORAGE_STEP_KEY));
+        if (!storedStep || storedStep < 1 || storedStep > TOTAL_STEPS) {
+            return 1;
+        }
+        return storedStep;
+    });
+
     const [direction, setDirection] = useState<1 | -1>(1);
+
+    useEffect(() => {
+        const maxValidStep = getMaxValidStep();
+
+        if (currentStep > maxValidStep) {
+            setCurrentStep(maxValidStep);
+        }
+    }, [data]);
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_STEP_KEY, String(currentStep));
+    }, [currentStep]);
+
 
     const canProceedToNextStep = (): boolean => {
         switch (currentStep) {
@@ -40,6 +68,8 @@ export const useFormNavigation = ({ data }: Props) => {
         setCurrentStep(step);
     };
 
+
+
     return {
         currentStep,
         direction,
@@ -47,6 +77,6 @@ export const useFormNavigation = ({ data }: Props) => {
         canProceedToNextStep,
         handlePreviousStep,
         handleNextStep,
-        goToStep
+        goToStep,
     }
 }

@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { TOTAL_STEPS } from "../constants/formSteps";
+import { STORAGE_KEYS, STORAGE_STEP_KEY } from "../constants/storageKeys";
 
 interface Props {
     currentStep: number;
@@ -15,6 +16,12 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
 
     const containerJustify = hasPreviousStep ? 'justify-between' : 'justify-end';
     const primaryLabel = isLastStep ? 'Complete Registration' : 'Next';
+
+    const handleFinalSubmit = () => {
+        localStorage.removeItem(STORAGE_STEP_KEY);
+        localStorage.removeItem(STORAGE_KEYS.FORM_DATA);
+    };
+
 
     return (
         <div className={`flex items-center gap-2 w-full max-w-200 mx-auto
@@ -38,7 +45,7 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
                         : 'shadow-blue-primary/20 bg-blue-primary hover:bg-[#1a7cd8] hover:-translate-y-px cursor-pointer'
                     }`}
                 type={isLastStep ? 'submit' : 'button'}
-                onClick={onNext}
+                onClick={isLastStep ? handleFinalSubmit : onNext}
             >
                 {primaryLabel}
 
