@@ -48,6 +48,7 @@ export const validateStep2 = (data: FormDataType): boolean => {
     return (
         isValidUsername(data.username) &&
         isValidPassword(data.password) &&
+        isStrongPassword(data.password) &&
         passwordMatch(data.password, data.confirmPassword)
     );
 };
@@ -68,7 +69,15 @@ export const getFieldError = (field: keyof FormDataType, value: any, formData?: 
             return !isValidUsername(value) ? 'Username must be 4-20 characters' : null;
 
         case 'password':
-            return !isValidPassword(value) ? 'Password must be at least 8 characters' : null;
+            if (!isValidPassword(value)) {
+                return 'Password must be at least 8 characters';
+            }
+
+            if (!isStrongPassword(value)) {
+                return 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
+            }
+
+            return null;
 
         case 'confirmPassword':
             return formData && !passwordMatch(formData.password, value)
