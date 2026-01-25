@@ -38,7 +38,12 @@ export const MultiStepForm = () => {
             <Header />
             <ProgressBar step={currentStep} />
             {steps[currentStep - 1]}
-            <FormNavigation currentStep={currentStep} onPrevious={handlePreviousStep} onNext={handleNextStep} />
+            <FormNavigation
+                currentStep={currentStep}
+                canProceedToNext={canProceedToNextStep()}
+                onPrevious={handlePreviousStep}
+                onNext={handleNextStep}
+            />
         </main>
     )
 }

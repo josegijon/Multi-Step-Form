@@ -29,7 +29,6 @@ export const useFormNavigation = ({ data }: Props) => {
 
     const handleNextStep = () => {
         if (!canProceedToNextStep()) {
-            console.warn('Cannot proceed: validation failed');
             return;
         }
 

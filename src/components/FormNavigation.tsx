@@ -3,11 +3,12 @@ import { TOTAL_STEPS } from "../constants/formSteps";
 
 interface Props {
     currentStep: number;
+    canProceedToNext: boolean;
     onPrevious: () => void;
     onNext: () => void;
 }
 
-export const FormNavigation = ({ currentStep, onPrevious, onNext }: Props) => {
+export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNext }: Props) => {
 
     const hasPreviousStep = currentStep > 1;
     const isLastStep = currentStep === TOTAL_STEPS;
@@ -31,8 +32,11 @@ export const FormNavigation = ({ currentStep, onPrevious, onNext }: Props) => {
             }
 
             <button
-                className="flex items-center gap-2 px-6 py-3 rounded-lg text-white bg-blue-primary font-bold shadow-md shadow-blue-primary/20 transition-all cursor-pointer
-            hover:bg-[#1a7cd8] hover:-translate-y-px"
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg text-white  font-bold shadow-md transition-all 
+                ${canProceedToNext === false
+                        ? 'bg-gray-400'
+                        : 'shadow-blue-primary/20 bg-blue-primary hover:bg-[#1a7cd8] hover:-translate-y-px cursor-pointer'
+                    }`}
                 type={isLastStep ? 'submit' : 'button'}
                 onClick={onNext}
             >
