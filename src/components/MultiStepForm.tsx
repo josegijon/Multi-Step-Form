@@ -8,13 +8,14 @@ import { Header } from './Header';
 import { useFormNavigation } from "../hooks/useFormNavigation"
 import { useMultiStepForm } from "../hooks/useMultiStepForm"
 import { useTouched } from "../hooks/useTouched"
+import { AnimatePresence, motion } from "motion/react"
+import { stepVariants } from "../animations/formStep.variants"
 
 export const MultiStepForm = () => {
     const { formData, updateFormData } = useMultiStepForm();
-
-    const { currentStep, handlePreviousStep, handleNextStep, canProceedToNextStep } = useFormNavigation({ data: formData });
-
     const { touched, handleBlur } = useTouched();
+
+    const { currentStep, direction, handlePreviousStep, handleNextStep, canProceedToNextStep } = useFormNavigation({ data: formData });
 
     const steps = [
         <Step1Personal
@@ -37,7 +38,23 @@ export const MultiStepForm = () => {
         <main className="font-inter bg-[#f3f4f6] min-h-screen flex flex-col gap-4 pb-8">
             <Header />
             <ProgressBar step={currentStep} />
-            {steps[currentStep - 1]}
+
+            <section className="relative overflow-hidden">
+                <AnimatePresence mode="wait" custom={direction}>
+                    <motion.div
+                        key={currentStep}
+                        custom={direction}
+                        variants={stepVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                    >
+                        {steps[currentStep - 1]}
+                    </motion.div>
+                </AnimatePresence>
+            </section>
+
             <FormNavigation
                 currentStep={currentStep}
                 canProceedToNext={canProceedToNextStep()}

@@ -9,6 +9,7 @@ interface Props {
 
 export const useFormNavigation = ({ data }: Props) => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [direction, setDirection] = useState<1 | -1>(1);
 
     const canProceedToNextStep = (): boolean => {
         switch (currentStep) {
@@ -21,27 +22,31 @@ export const useFormNavigation = ({ data }: Props) => {
         }
     }
 
-    const handlePreviousStep = () => {
-        setCurrentStep((prev) =>
-            prev > 1 ? prev - 1 : prev
-        );
+    const handleNextStep = () => {
+        if (!canProceedToNextStep() || currentStep >= TOTAL_STEPS) return;
+        setDirection(1);
+        setCurrentStep(prev => prev + 1);
     };
 
-    const handleNextStep = () => {
-        if (!canProceedToNextStep()) {
-            return;
-        }
+    const handlePreviousStep = () => {
+        if (currentStep <= 1) return;
+        setDirection(-1);
+        setCurrentStep(prev => prev - 1);
+    };
 
-        setCurrentStep((prev) =>
-            prev < TOTAL_STEPS ? prev + 1 : prev
-        );
+    const goToStep = (step: number) => {
+        if (step === currentStep || step < 1 || step > TOTAL_STEPS) return;
+        setDirection(step > currentStep ? 1 : -1);
+        setCurrentStep(step);
     };
 
     return {
         currentStep,
+        direction,
 
         canProceedToNextStep,
         handlePreviousStep,
-        handleNextStep
+        handleNextStep,
+        goToStep
     }
 }

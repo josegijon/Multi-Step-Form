@@ -123,7 +123,7 @@ export const Step3Preferences = ({ data, onChange }: Props) => {
                         </div>
 
                         <div className="flex flex-col">
-                            <p className="text-[#1F2937] text-base font-semibold leading-normal">
+                            <p className="text-black-02 text-base font-semibold leading-normal">
                                 Newsletter
                             </p>
                             <p className="text-slate-500 text-sm font-normal">
