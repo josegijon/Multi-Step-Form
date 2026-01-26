@@ -42,7 +42,7 @@ export const MultiStepForm = () => {
         <Layout>
             <ProgressBar step={currentStep} />
 
-            <section className="relative overflow-hidden">
+            <section className="relative overflow-hidden p-4">
                 <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                         key={currentStep}

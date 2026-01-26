@@ -12,7 +12,7 @@ export const ProgressBar = ({ step }: Props) => {
     }
 
     return (
-        <div className="flex flex-col gap-2 max-w-200 mx-auto w-full">
+        <div className="flex flex-col gap-2 max-w-200 mx-auto w-full p-4">
             <div className="flex gap-6 justify-between items-end">
                 <p className="text-black-02 text-sm font-semibold uppercase tracking-wide">
                     Step {step} of {TOTAL_STEPS}
