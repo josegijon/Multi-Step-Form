@@ -6,11 +6,11 @@ import { useState } from "react";
 interface Props {
     data: FormDataType;
     onChange: (field: keyof FormDataType, value: any) => void;
-    touched: Record<string, boolean>;
-    handleBlur: (field: keyof FormDataType) => void;
+    touched?: Record<string, boolean>;
+    handleBlur?: (field: keyof FormDataType) => void;
 }
 
-export const Step2Professional = ({ data, onChange, touched, handleBlur }: Props) => {
+export const Step2Professional = ({ data, onChange, touched = {}, handleBlur = () => { } }: Props) => {
 
     const [visibleFields, setVisibleFields] = useState({
         password: false,

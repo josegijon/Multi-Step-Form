@@ -9,7 +9,22 @@ import { useFormNavigation } from "../hooks/useFormNavigation"
 import { useMultiStepForm } from "../hooks/useMultiStepForm"
 import { useTouched } from "../hooks/useTouched"
 import { AnimatePresence, motion } from "motion/react"
-import { stepVariants } from "../animations/formStep.variants"
+import { stepTransition, stepVariants } from "../animations/formStep.variants"
+import type { FormDataType } from "../types/form.types"
+
+interface StepProps {
+    data: FormDataType;
+    onChange: (field: keyof FormDataType, value: any) => void;
+    touched?: Record<string, boolean>;
+    handleBlur?: (field: keyof FormDataType) => void;
+}
+
+const STEP_COMPONENTS: React.FC<StepProps>[] = [
+    Step1Personal,
+    Step2Professional,
+    Step3Preferences,
+    Step4Summary,
+];
 
 export const MultiStepForm = () => {
     const { formData, updateFormData } = useMultiStepForm();
@@ -17,22 +32,7 @@ export const MultiStepForm = () => {
 
     const { currentStep, direction, handlePreviousStep, handleNextStep, canProceedToNextStep } = useFormNavigation({ data: formData });
 
-    const steps = [
-        <Step1Personal
-            data={formData}
-            onChange={updateFormData}
-            touched={touched}
-            handleBlur={handleBlur}
-        />,
-        <Step2Professional
-            data={formData}
-            onChange={updateFormData}
-            touched={touched}
-            handleBlur={handleBlur}
-        />,
-        <Step3Preferences data={formData} onChange={updateFormData} />,
-        <Step4Summary data={formData} onChange={updateFormData} />
-    ]
+    const StepComponent = STEP_COMPONENTS[currentStep - 1];
 
     return (
         <main className="font-inter bg-[#f3f4f6] min-h-screen flex flex-col gap-4 pb-8">
@@ -48,10 +48,15 @@ export const MultiStepForm = () => {
                         initial="enter"
                         animate="center"
                         exit="exit"
-                        transition={{ duration: 0.35, ease: "easeOut" }}
+                        transition={stepTransition}
                         className="flex flex-col gap-4"
                     >
-                        {steps[currentStep - 1]}
+                        <StepComponent
+                            data={formData}
+                            onChange={updateFormData}
+                            touched={touched}
+                            handleBlur={handleBlur}
+                        />
 
                         <FormNavigation
                             currentStep={currentStep}
@@ -62,7 +67,6 @@ export const MultiStepForm = () => {
                     </motion.div>
                 </AnimatePresence>
             </section>
-
         </main>
     )
 }

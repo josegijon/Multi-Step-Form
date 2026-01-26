@@ -14,3 +14,8 @@ export const stepVariants: Variants = {
         opacity: 0
     })
 };
+
+export const stepTransition = {
+    duration: 0.35,
+    ease: "easeOut" as const
+};
