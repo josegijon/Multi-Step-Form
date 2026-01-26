@@ -9,6 +9,17 @@ interface Props {
     onNext: () => void;
 }
 
+const baseButtonStyles = "flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all";
+
+const secondaryButtonStyles = `${baseButtonStyles} text-black-02 border border-[#e5e7eb] bg-white hover:bg-slate-50 cursor-pointer`;
+
+const getPrimaryButtonStyles = (isEnabled: boolean) =>
+    `${baseButtonStyles} text-white font-bold shadow-md ${isEnabled
+        ? "shadow-blue-primary/20 bg-blue-primary hover:bg-[#1a7cd8] hover:-translate-y-px cursor-pointer"
+        : "bg-gray-400 cursor-not-allowed"
+    }`;
+
+
 export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNext }: Props) => {
 
     const hasPreviousStep = currentStep > 1;
@@ -18,49 +29,47 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
     const primaryLabel = isLastStep ? 'Complete Registration' : 'Next';
 
     const handleFinalSubmit = () => {
+        if (!canProceedToNext) return;
+
         localStorage.removeItem(STORAGE_STEP_KEY);
         localStorage.removeItem(STORAGE_KEYS.FORM_DATA);
+        onNext();
     };
 
+    const handlePrimaryClick = () => {
+        if (!canProceedToNext) return;
+
+        isLastStep ? handleFinalSubmit() : onNext();
+    };
 
     return (
-        <div className={`flex items-center gap-2 w-full max-w-200 mx-auto
-        ${containerJustify}`}>
-            {hasPreviousStep &&
+        <div className={`flex items-center gap-2 w-full max-w-200 mx-auto ${containerJustify}`}>
+            {hasPreviousStep && (
                 <button
-                    className="flex items-center gap-2 px-6 py-3 rounded-lg text-black-02 border border-[#e5e7eb] bg-white font-medium transition-colors cursor-pointer
-                    hover:bg-slate-50"
+                    className={secondaryButtonStyles}
                     type="button"
                     onClick={onPrevious}
                 >
                     <ArrowLeft size={18} />
                     Previous
                 </button>
-            }
+            )}
 
             <button
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg text-white  font-bold shadow-md transition-all 
-                ${canProceedToNext === false
-                        ? 'bg-gray-400'
-                        : 'shadow-blue-primary/20 bg-blue-primary hover:bg-[#1a7cd8] hover:-translate-y-px cursor-pointer'
-                    }`}
+                className={getPrimaryButtonStyles(canProceedToNext)}
                 type={isLastStep ? 'submit' : 'button'}
-                onClick={isLastStep ? handleFinalSubmit : onNext}
+                onClick={handlePrimaryClick}
             >
                 {primaryLabel}
 
-                {isLastStep
-                    ? <div className={`bg-white rounded-full p-1 
-                    ${canProceedToNext
-                            ? 'text-blue-primary'
-                            : 'text-gray-400'
-                        }
-                    `}>
+                {isLastStep ? (
+                    <span className={`bg-white rounded-full p-1 ${canProceedToNext ? 'text-blue-primary' : 'text-gray-400'}`}>
                         <Check size={12} />
-                    </div>
-                    : <ArrowRight size={18} />
-                }
-            </button>
-        </div>
-    )
-}
+                    </span>
+                ) : (
+                    <ArrowRight size={18} />
+                )}
+            </button >
+        </div >
+    );
+};
