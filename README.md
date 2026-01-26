@@ -1,73 +1,173 @@
-# React + TypeScript + Vite
+# 🚀 Multi-Step Registration Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, animated multi-step registration form built with React, TypeScript, and Tailwind CSS. Features smooth transitions, form validation, data persistence, and a delightful user experience.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📸 Screenshots
 
-## React Compiler
+<div align="center">
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+| Step 1: Personal Info | Step 2: Account Security |
+|:---------------------:|:------------------------:|
+| ![Step 1](./screenshots/step1.png) | ![Step 2](./screenshots/step2.png) |
 
-## Expanding the ESLint configuration
+| Step 3: Preferences | Step 4: Summary |
+|:-------------------:|:---------------:|
+| ![Step 3](./screenshots/step3.png) | ![Step 4](./screenshots/step4.png) |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Confirmation Modal | Success Screen |
+|:------------------:|:--------------:|
+| ![Modal](./screenshots/modal.png) | ![Success](./screenshots/success.png) |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+</div>
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ✨ Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **4-Step Registration Flow** - Personal info, account security, preferences, and summary
+- **Real-time Validation** - Instant feedback with field-level error messages
+- **Smooth Animations** - Page transitions powered by Framer Motion
+- **Data Persistence** - Form data saved to localStorage (survives page refresh)
+- **Accessible** - ARIA attributes, keyboard navigation, focus management
+- **Responsive Design** - Works seamlessly on mobile, tablet, and desktop
+- **Confirmation Modal** - Review before final submission
+- **Confetti Celebration** - Delightful success animation 🎉
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| **React 19** | UI library with latest features |
+| **TypeScript** | Type safety and better DX |
+| **Tailwind CSS 4** | Utility-first styling |
+| **Framer Motion** | Smooth animations and transitions |
+| **Vite** | Lightning-fast development |
+| **Lucide React** | Beautiful icons |
+| **Canvas Confetti** | Success celebration effect |
+
+## 📁 Project Structure
+
+```
+src/
+├── animations/          # Framer Motion variants
+│   ├── formStep.variants.ts
+│   └── modal.variants.ts
+├── components/
+│   ├── steps/           # Step components
+│   │   ├── Step1Personal.tsx
+│   │   ├── Step2Professional.tsx
+│   │   ├── Step3Preferences.tsx
+│   │   ├── Step4Summary.tsx
+│   │   └── SuccessScreen.tsx
+│   ├── ui/              # Reusable UI components
+│   │   ├── FormInput.tsx
+│   │   ├── PasswordInput.tsx
+│   │   ├── ToggleSwitch.tsx
+│   │   ├── ThemeSelect.tsx
+│   │   ├── InterestCheckbox.tsx
+│   │   └── ConfirmModal.tsx
+│   ├── FormNavigation.tsx
+│   ├── ProgressBar.tsx
+│   ├── Layout.tsx
+│   └── MultiStepForm.tsx
+├── constants/           # Configuration
+│   ├── formFields.ts
+│   ├── formSteps.ts
+│   ├── interests.ts
+│   └── storageKeys.ts
+├── hooks/               # Custom React hooks
+│   ├── useFormNavigation.ts
+│   ├── useFormSubmit.ts
+│   ├── useMultiStepForm.ts
+│   └── useTouched.ts
+├── types/               # TypeScript definitions
+│   ├── form.types.ts
+│   └── step.types.ts
+└── utils/               # Helper functions
+    ├── styles.ts
+    └── validation.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Quick Start
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install && npm run dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## 🎨 Key Implementation Details
+
+### Custom Hooks
+
+```typescript
+// Form state management with localStorage persistence
+const { formData, updateFormData } = useMultiStepForm();
+
+// Navigation with validation
+const { currentStep, handleNextStep, handlePreviousStep } = useFormNavigation({ data: formData });
+
+// Track touched fields for validation
+const { touched, handleBlur } = useTouched();
+
+// Modal and completion state
+const { isModalOpen, isCompleted, openModal, confirmSubmit } = useFormSubmit();
+```
+
+### Validation
+
+Real-time validation with detailed error messages:
+
+```typescript
+export const getFieldError = (field: keyof FormDataType, value: any): string | null => {
+    switch (field) {
+        case 'email':
+            return !isValidEmail(value) ? 'Please enter a valid email' : null;
+        case 'password':
+            if (!isStrongPassword(value)) {
+                return 'Password must contain uppercase, lowercase, and number';
+            }
+            return null;
+        // ...
+    }
+};
+```
+
+### Animations
+
+Smooth step transitions with Framer Motion:
+
+```typescript
+export const stepVariants: Variants = {
+    enter: (direction: number) => ({
+        x: direction > 0 ? 100 : -100,
+        opacity: 0
+    }),
+    center: { x: 0, opacity: 1 },
+    exit: (direction: number) => ({
+        x: direction > 0 ? -100 : 100,
+        opacity: 0
+    })
+};
+```
+
+## 📱 Responsive Design
+
+- **Mobile**: Single column layout, stacked buttons
+- **Tablet**: Optimized spacing and touch targets
+- **Desktop**: Two-column grids where appropriate
+
+## ♿ Accessibility
+
+- Semantic HTML (`<header>`, `<section>`, `<label>`)
+- ARIA attributes for modals and dynamic content
+- Keyboard navigation (Escape to close modal)
+- Focus management
+- Color contrast compliance
+
+## 👤 Author
+
+**Jose Manuel Gijón**
+
+- GitHub: [@josegijon](https://github.com/josegijon)
+- LinkedIn: [Jose Manuel Gijón Almazán](https://www.linkedin.com/in/jose-manuel-gijón-almazán-bb804124b)
