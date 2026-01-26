@@ -1,12 +1,12 @@
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { TOTAL_STEPS } from "../constants/formSteps";
-import { STORAGE_KEYS, STORAGE_STEP_KEY } from "../constants/storageKeys";
 
 interface Props {
     currentStep: number;
     canProceedToNext: boolean;
     onPrevious: () => void;
     onNext: () => void;
+    onSubmit?: () => void;  // Nueva prop
 }
 
 const baseButtonStyles = "flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all justify-center w-full 3xs:w-fit";
@@ -20,7 +20,7 @@ const getPrimaryButtonStyles = (isEnabled: boolean) =>
     }`;
 
 
-export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNext }: Props) => {
+export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNext, onSubmit }: Props) => {
 
     const hasPreviousStep = currentStep > 1;
     const isLastStep = currentStep === TOTAL_STEPS;
@@ -28,18 +28,14 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
     const containerJustify = hasPreviousStep ? 'justify-between' : 'justify-end';
     const primaryLabel = isLastStep ? 'Complete Registration' : 'Next';
 
-    const handleFinalSubmit = () => {
-        if (!canProceedToNext) return;
-
-        localStorage.removeItem(STORAGE_STEP_KEY);
-        localStorage.removeItem(STORAGE_KEYS.FORM_DATA);
-        onNext();
-    };
-
     const handlePrimaryClick = () => {
         if (!canProceedToNext) return;
 
-        isLastStep ? handleFinalSubmit() : onNext();
+        if (isLastStep && onSubmit) {
+            onSubmit();
+        } else {
+            onNext();
+        }
     };
 
     return (
@@ -57,7 +53,8 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
 
             <button
                 className={getPrimaryButtonStyles(canProceedToNext)}
-                type={isLastStep ? 'submit' : 'button'}
+                type="button"
+                disabled={!canProceedToNext}
                 onClick={handlePrimaryClick}
             >
                 {primaryLabel}
@@ -69,7 +66,7 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
                 ) : (
                     <ArrowRight size={18} />
                 )}
-            </button >
-        </div >
+            </button>
+        </div>
     );
 };
