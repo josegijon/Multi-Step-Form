@@ -1,5 +1,7 @@
 import { AlertTriangle, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useCallback } from "react";
+import { overlayVariants, modalVariants, modalTransition } from "../../animations/modal.variants";
 
 interface ConfirmModalProps {
     isOpen: boolean;
@@ -7,17 +9,27 @@ interface ConfirmModalProps {
     onCancel: () => void;
 }
 
-const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-};
-
-const modalVariants = {
-    hidden: { opacity: 0, scale: 0.95, y: 20 },
-    visible: { opacity: 1, scale: 1, y: 0 },
-};
-
 export const ConfirmModal = ({ isOpen, onConfirm, onCancel }: ConfirmModalProps) => {
+    // Cerrar con Escape
+    const handleKeyDown = useCallback((e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+            onCancel();
+        }
+    }, [onCancel]);
+
+    // Bloquear scroll y añadir listener de Escape
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+            document.addEventListener("keydown", handleKeyDown);
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [isOpen, handleKeyDown]);
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -26,24 +38,29 @@ export const ConfirmModal = ({ isOpen, onConfirm, onCancel }: ConfirmModalProps)
                     initial="hidden"
                     animate="visible"
                     exit="hidden"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modal-title"
                 >
                     {/* Overlay */}
                     <motion.div
                         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                         variants={overlayVariants}
                         onClick={onCancel}
+                        aria-hidden="true"
                     />
 
                     {/* Modal */}
                     <motion.div
                         className="relative bg-white rounded-xl shadow-xl max-w-md w-full p-6 flex flex-col gap-6"
                         variants={modalVariants}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        transition={modalTransition}
                     >
                         {/* Close button */}
                         <button
                             onClick={onCancel}
                             className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                            aria-label="Cerrar modal"
                         >
                             <X size={20} />
                         </button>
@@ -51,13 +68,13 @@ export const ConfirmModal = ({ isOpen, onConfirm, onCancel }: ConfirmModalProps)
                         {/* Icon */}
                         <div className="flex justify-center">
                             <div className="bg-blue-100 text-blue-primary rounded-full p-4">
-                                <AlertTriangle size={32} />
+                                <AlertTriangle size={32} aria-hidden="true" />
                             </div>
                         </div>
 
                         {/* Content */}
                         <div className="text-center">
-                            <h2 className="text-xl font-bold text-black-01 mb-2">
+                            <h2 id="modal-title" className="text-xl font-bold text-black-01 mb-2">
                                 Confirm Registration
                             </h2>
                             <p className="text-gray-01 text-sm leading-relaxed">
@@ -77,6 +94,7 @@ export const ConfirmModal = ({ isOpen, onConfirm, onCancel }: ConfirmModalProps)
                             <button
                                 onClick={onConfirm}
                                 className="flex-1 px-4 py-3 rounded-lg bg-blue-primary text-white font-bold hover:bg-[#1a7cd8] transition-colors cursor-pointer"
+                                autoFocus
                             >
                                 Confirm & Submit
                             </button>
