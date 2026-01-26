@@ -9,7 +9,7 @@ interface Props {
     onNext: () => void;
 }
 
-const baseButtonStyles = "flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all";
+const baseButtonStyles = "flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all justify-center w-full 3xs:w-fit";
 
 const secondaryButtonStyles = `${baseButtonStyles} text-black-02 border border-[#e5e7eb] bg-white hover:bg-slate-50 cursor-pointer`;
 
@@ -43,7 +43,7 @@ export const FormNavigation = ({ currentStep, canProceedToNext, onPrevious, onNe
     };
 
     return (
-        <div className={`flex items-center gap-2 w-full max-w-200 mx-auto ${containerJustify}`}>
+        <div className={`flex flex-col 3xs:flex-row items-center gap-2 w-full max-w-200 mx-auto ${containerJustify}`}>
             {hasPreviousStep && (
                 <button
                     className={secondaryButtonStyles}

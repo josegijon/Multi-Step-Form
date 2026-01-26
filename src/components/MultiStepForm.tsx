@@ -28,7 +28,7 @@ export const MultiStepForm = () => {
     const StepComponent = STEP_COMPONENTS[currentStep - 1];
 
     return (
-        <main className="font-inter bg-[#f3f4f6] min-h-screen flex flex-col gap-4 pb-8">
+        <main className="font-inter bg-[#f3f4f6] min-h-screen flex flex-col gap-4 p-4 pb-8">
             <Header />
             <ProgressBar step={currentStep} />
 
