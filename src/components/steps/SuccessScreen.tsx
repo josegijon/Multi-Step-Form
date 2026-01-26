@@ -3,38 +3,33 @@ import { CheckCircle } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect } from "react";
 
-const fireConfetti = () => {
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { x: 0.1, y: 0.6 },
-        colors: ['#22c55e', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6']
-    });
+const CONFETTI_COLORS = ['#22c55e', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6'];
 
-    confetti({
+const fireConfetti = () => {
+    const baseConfig = {
         particleCount: 100,
         spread: 70,
-        origin: { x: 0.9, y: 0.6 },
-        colors: ['#22c55e', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6'],
-    });
+        colors: CONFETTI_COLORS,
+    };
+
+    confetti({ ...baseConfig, origin: { x: 0.1, y: 0.6 } });
+
+    confetti({ ...baseConfig, origin: { x: 0.9, y: 0.6 } });
 
     setTimeout(() => {
         confetti({
+            ...baseConfig,
             particleCount: 50,
             spread: 100,
             origin: { x: 0.5, y: 0.5 },
-            colors: ['#22c55e', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6'],
         });
     }, 200);
-}
-
+};
 
 export const SuccessScreen = () => {
-
     useEffect(() => {
         fireConfetti();
     }, []);
-
 
     const handleStartOver = () => {
         window.location.reload();
