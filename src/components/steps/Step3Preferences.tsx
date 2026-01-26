@@ -1,8 +1,8 @@
 import { INTERESTS } from "../../constants/interests";
 import type { StepProps } from "../../types/step.types";
-import { InterestCheckbox } from "../InterestCheckbox";
-import { ThemeSelect } from "../ThemeSelect";
-import { ToggleSwitch } from "../ToggleSwitch";
+import { InterestCheckbox } from "../ui/InterestCheckbox";
+import { ThemeSelect } from "../ui/ThemeSelect";
+import { ToggleSwitch } from "../ui/ToggleSwitch";
 
 
 export const Step3Preferences = ({ data, onChange }: StepProps) => {

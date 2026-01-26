@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { FormDataType } from "../types/form.types";
-import { getFieldError } from "../utils/validation";
+import type { FormDataType } from "../../types/form.types";
+import { getFieldError } from "../../utils/validation";
 import { Eye, EyeClosed } from "lucide-react";
-import { getInputStyles } from "../utils/styles";
+import { getInputStyles } from "../../utils/styles";
 
 interface PasswordInputProps {
     id: "password" | "confirmPassword";

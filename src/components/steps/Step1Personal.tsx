@@ -1,7 +1,6 @@
 import { STEP1_FIELDS } from "../../constants/formFields";
-import type { FormDataType } from "../../types/form.types";
 import type { StepProps } from "../../types/step.types";
-import { FormInput } from "../FormInput";
+import { FormInput } from "../ui/FormInput";
 
 export const Step1Personal = ({ data, onChange, touched = {}, handleBlur = () => { } }: StepProps) => {
 

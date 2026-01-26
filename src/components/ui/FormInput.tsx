@@ -1,6 +1,6 @@
-import type { FormDataType } from "../types/form.types"
-import { getInputStyles } from "../utils/styles";
-import { getFieldError } from "../utils/validation";
+import type { FormDataType } from "../../types/form.types";
+import { getInputStyles } from "../../utils/styles";
+import { getFieldError } from "../../utils/validation";
 
 interface FormInputProps {
     id: keyof FormDataType;

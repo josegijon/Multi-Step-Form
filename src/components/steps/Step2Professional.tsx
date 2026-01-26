@@ -1,8 +1,6 @@
-import type { FormDataType } from "../../types/form.types";
 import type { StepProps } from "../../types/step.types";
-import { FormInput } from "../FormInput";
-import { PasswordInput } from "../PasswordInput";
-
+import { FormInput } from "../ui/FormInput";
+import { PasswordInput } from "../ui/PasswordInput";
 export const Step2Professional = ({ data, onChange, touched = {}, handleBlur = () => { } }: StepProps) => {
     return (
         <div className="px-4">
