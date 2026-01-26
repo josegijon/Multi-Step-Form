@@ -1,5 +1,6 @@
-import type { FormDataType } from "../types/form.types"
-import { getFieldError } from "../utils/validation";
+import type { FormDataType } from "../../types/form.types";
+import { getInputStyles } from "../../utils/styles";
+import { getFieldError } from "../../utils/validation";
 
 interface FormInputProps {
     id: keyof FormDataType;
@@ -12,14 +13,6 @@ interface FormInputProps {
     touched: boolean;
     formData?: FormDataType;
 }
-
-const getInputStyles = (hasError: boolean) =>
-    `w-full h-12 px-4 rounded-md border bg-white text-black-01 text-base transition-all
-    placeholder:text-[#9ca3af] focus:outline-none focus:ring-2
-    ${hasError
-        ? "border-red-500 focus:ring-red-500/50 focus:border-red-500"
-        : "border-[#dbe0e6] focus:ring-blue-primary/50 focus:border-blue-primary"
-    }`;
 
 export const FormInput = ({
     id,

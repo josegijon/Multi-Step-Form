@@ -1,15 +1,11 @@
-import type { FormDataType } from "../../types/form.types"
 import { SummarySection } from "../SummarySection";
 import { SummaryField } from '../SummaryField';
 import { Moon, Sun } from "lucide-react";
 import { TermCheckbox } from "../TermCheckbox";
+import type { StepProps } from "../../types/step.types";
 
-interface Props {
-    data: FormDataType;
-    onChange: (field: keyof FormDataType, value: any) => void;
-}
 
-export const Step4Summary = ({ data, onChange }: Props) => {
+export const Step4Summary = ({ data, onChange }: StepProps) => {
 
     const isNewsletterEnabled = data.newsletter;
 

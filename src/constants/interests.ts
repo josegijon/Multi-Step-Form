@@ -5,4 +5,4 @@ export const INTERESTS = [
     { id: "business", label: "Business" },
 ] as const;
 
-export type INTERESTS = typeof INTERESTS[number]['label'];
+export type Interest = typeof INTERESTS[number]['label'];

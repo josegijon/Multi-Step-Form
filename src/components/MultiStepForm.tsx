@@ -10,14 +10,7 @@ import { useMultiStepForm } from "../hooks/useMultiStepForm"
 import { useTouched } from "../hooks/useTouched"
 import { AnimatePresence, motion } from "motion/react"
 import { stepTransition, stepVariants } from "../animations/formStep.variants"
-import type { FormDataType } from "../types/form.types"
-
-interface StepProps {
-    data: FormDataType;
-    onChange: (field: keyof FormDataType, value: any) => void;
-    touched?: Record<string, boolean>;
-    handleBlur?: (field: keyof FormDataType) => void;
-}
+import type { StepProps } from "../types/step.types"
 
 const STEP_COMPONENTS: React.FC<StepProps>[] = [
     Step1Personal,
@@ -35,7 +28,7 @@ export const MultiStepForm = () => {
     const StepComponent = STEP_COMPONENTS[currentStep - 1];
 
     return (
-        <main className="font-inter bg-[#f3f4f6] min-h-screen flex flex-col gap-4 pb-8">
+        <main className="font-inter bg-[#f3f4f6] min-h-screen flex flex-col gap-4 p-4 pb-8">
             <Header />
             <ProgressBar step={currentStep} />
 

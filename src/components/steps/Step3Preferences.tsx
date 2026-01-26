@@ -1,15 +1,11 @@
 import { INTERESTS } from "../../constants/interests";
-import type { FormDataType } from "../../types/form.types";
-import { InterestCheckbox } from "../InterestCheckbox";
-import { ThemeSelect } from "../ThemeSelect";
-import { ToggleSwitch } from "../ToggleSwitch";
+import type { StepProps } from "../../types/step.types";
+import { InterestCheckbox } from "../ui/InterestCheckbox";
+import { ThemeSelect } from "../ui/ThemeSelect";
+import { ToggleSwitch } from "../ui/ToggleSwitch";
 
-interface Props {
-    data: FormDataType;
-    onChange: (field: keyof FormDataType, value: any) => void;
-}
 
-export const Step3Preferences = ({ data, onChange }: Props) => {
+export const Step3Preferences = ({ data, onChange }: StepProps) => {
 
     const handleInterestToggle = (interest: string) => {
         const current = data.interests || [];
