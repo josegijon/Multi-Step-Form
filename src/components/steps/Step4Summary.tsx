@@ -1,4 +1,8 @@
 import type { FormDataType } from "../../types/form.types"
+import { SummarySection } from "../SummarySection";
+import { SummaryField } from '../SummaryField';
+import { Moon, Sun } from "lucide-react";
+import { TermCheckbox } from "../TermCheckbox";
 
 interface Props {
     data: FormDataType;
@@ -8,139 +12,69 @@ interface Props {
 export const Step4Summary = ({ data, onChange }: Props) => {
 
     const isNewsletterEnabled = data.newsletter;
-    const newsletterStatus = isNewsletterEnabled ? 'Enabled' : 'Disabled';
-    const newletterDotColor = isNewsletterEnabled ? 'bg-emerald-500' : 'bg-red-500'
 
     return (
         <div className="flex flex-col gap-8 w-full max-w-200 mx-auto">
             <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8">
-                {/* Header */}
-                <div className="flex flex-col gap-2">
+                <header className="flex flex-col gap-2">
                     <h1 className="text-black-01 text-[32px] font-bold leading-tight tracking-tight">
                         Review your details
                     </h1>
                     <p className="text-[#617589] text-base font-normal leading-relaxed">
                         Please verify that all information provided is correct before completing your registration.
                     </p>
-                </div>
+                </header>
 
-                <div className="p-2 sm:p-4 md:p-8 border-b border-slate-100">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-black-02 text-lg font-bold">
-                            Personal Information
-                        </h2>
-                    </div>
+                <SummarySection title="Personal Information">
+                    <SummaryField label="Full Name">{data.fullName}</SummaryField>
+                    <SummaryField label="Email Address">{data.email}</SummaryField>
+                    <SummaryField label="Birth Date">{data.birthDate}</SummaryField>
+                    <SummaryField label="Username">{data.username}</SummaryField>
+                </SummarySection>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
-                        <div className="flex flex-col gap-1">
-                            <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
-                                Full Name
-                            </p>
-                            <p className="text-black-02 text-base font-medium">
-                                {data.fullName}
-                            </p>
-                        </div>
+                <hr className="border-gray-100" />
 
-                        <div className="flex flex-col gap-1">
-                            <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
-                                Email Address
-                            </p>
-                            <p className="text-black-02 text-base font-medium">
-                                {data.email}
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col gap-1">
-                            <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
-                                Birth date
-                            </p>
-                            <p className="text-black-02 text-base font-medium">
-                                {data.birthDate}
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col gap-1">
-                            <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
-                                Username
-                            </p>
-                            <p className="text-black-02 text-base font-medium">
-                                {data.username}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="p-2 sm:p-4 md:p-8">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-black-02 text-lg font-bold">
-                            Account Preferences
-                        </h2>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
-                        <div className="flex flex-col gap-1">
-                            <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
-                                Interests
-                            </p>
-                            <div className="flex flex-wrap gap-2 mt-2">
-                                {data.interests?.map((element) => (
+                <SummarySection title="Account Preferences">
+                    <SummaryField label="Interests">
+                        {data.interests?.length > 0 ? (
+                            <div className="flex flex-wrap gap-2 mt-1">
+                                {data.interests.map((interest) => (
                                     <span
-                                        key={element}
+                                        key={interest}
                                         className="px-2.5 py-1 bg-blue-primary/10 text-blue-primary text-xs font-semibold rounded"
                                     >
-                                        {element}
+                                        {interest}
                                     </span>
-                                ))
-                                }
+                                ))}
                             </div>
-                        </div>
+                        ) : (
+                            <span className="text-gray-400 italic">None selected</span>
+                        )}
+                    </SummaryField>
 
-                        <div className="flex flex-col gap-1">
-                            <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
-                                Preferred Theme
-                            </p>
-                            <div className="flex items-center gap-2 text-black-02 text-base font-medium capitalize">
-                                <span>
-                                    {/* Icono */}
-                                </span>
-                                {data.theme} Mode
-                            </div>
+                    <SummaryField label="Preferred Theme">
+                        <div className="flex items-center gap-2 capitalize">
+                            {data.theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
+                            {data.theme} Mode
                         </div>
+                    </SummaryField>
 
-                        <div className="flex flex-col gap-1">
-                            <p className="text-gray-01 text-xs font-semibold uppercase tracking-wider">
-                                Newsletter Status
-                            </p>
-                            <div className="flex items-center gap-2">
-                                <span className={`w-2 h-2 rounded-full ${newletterDotColor}`}
-                                ></span>
-                                <p className="text-black-02 text-base font-medium">
-                                    {newsletterStatus}
-                                </p>
-                            </div>
+                    <SummaryField label="Newsletter Status">
+                        <div className="flex items-center gap-2">
+                            <span
+                                className={`w-2 h-2 rounded-full ${isNewsletterEnabled ? "bg-emerald-500" : "bg-red-500"
+                                    }`}
+                            />
+                            {isNewsletterEnabled ? "Enabled" : "Disabled"}
                         </div>
-                    </div>
-                </div>
+                    </SummaryField>
+                </SummarySection>
             </div>
 
-            <div className="flex gap-4 p-5 bg-white rounded-xl shadow-sm border border-[#e5e7eb] max-w-200 mx-auto">
-                <div className="flex items-center">
-                    <input
-                        type="checkbox"
-                        id="terms"
-                        className="size-5 rounded border-slate-300 text-blue-primary focus:ring-blue-primary focus:ring-offset-2"
-                        checked={data.terms}
-                        onChange={(e) => onChange('terms', e.target.checked)}
-                        required
-                    />
-                </div>
-                <label
-                    htmlFor="terms"
-                    className="text-sm text-gray-01 leading-relaxed cursor-pointer"
-                >
-                    I confirm that the information provided above is accurate. I have read and agree to the <a className="text-blue-primary font-medium hover:underline" href="#">Terms of Service</a> and <a className="text-blue-primary font-medium hover:underline" href="#">Privacy Policy</a>.
-                </label>
-            </div>
+            <TermCheckbox
+                checked={data.terms}
+                onChange={(checked) => onChange("terms", checked)}
+            />
         </div >
     )
 }
