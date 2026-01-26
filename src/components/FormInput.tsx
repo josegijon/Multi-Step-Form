@@ -1,0 +1,60 @@
+import type { FormDataType } from "../types/form.types"
+import { getFieldError } from "../utils/validation";
+
+interface FormInputProps {
+    id: keyof FormDataType;
+    label: string;
+    type: 'text' | 'email' | 'date' | 'password';
+    value: string;
+    placeholder?: string;
+    onChange: (field: keyof FormDataType, value: string) => void;
+    onBlur: (field: keyof FormDataType) => void;
+    touched: boolean;
+    formData?: FormDataType;
+}
+
+const getInputStyles = (hasError: boolean) =>
+    `w-full h-12 px-4 rounded-md border bg-white text-black-01 text-base transition-all
+    placeholder:text-[#9ca3af] focus:outline-none focus:ring-2
+    ${hasError
+        ? "border-red-500 focus:ring-red-500/50 focus:border-red-500"
+        : "border-[#dbe0e6] focus:ring-blue-primary/50 focus:border-blue-primary"
+    }`;
+
+export const FormInput = ({
+    id,
+    label,
+    type,
+    value,
+    placeholder,
+    onChange,
+    onBlur,
+    touched,
+    formData,
+}: FormInputProps) => {
+    const error = touched ? getFieldError(id, value, formData) : null;
+
+    return (
+        <label
+            className="flex flex-col gap-2"
+            htmlFor={id}
+        >
+            <span className="text-black-01 text-sm font-semibold">
+                {label}
+            </span>
+            <div className="flex flex-col gap-1">
+                <input
+                    id={id}
+                    type={type}
+                    value={value}
+                    onChange={(e) => onChange(id, e.target.value)}
+                    onBlur={() => onBlur(id)}
+                    className={getInputStyles(!!error)}
+                    placeholder={placeholder}
+                    required
+                />
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+            </div>
+        </label>
+    )
+}
