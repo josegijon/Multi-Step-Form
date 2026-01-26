@@ -1,15 +1,9 @@
 import type { FormDataType } from "../../types/form.types";
+import type { StepProps } from "../../types/step.types";
 import { FormInput } from "../FormInput";
 import { PasswordInput } from "../PasswordInput";
 
-interface Props {
-    data: FormDataType;
-    onChange: (field: keyof FormDataType, value: any) => void;
-    touched?: Record<string, boolean>;
-    handleBlur?: (field: keyof FormDataType) => void;
-}
-
-export const Step2Professional = ({ data, onChange, touched = {}, handleBlur = () => { } }: Props) => {
+export const Step2Professional = ({ data, onChange, touched = {}, handleBlur = () => { } }: StepProps) => {
     return (
         <div className="px-4">
             <div className="bg-white rounded-xl shadow-sm border border-[#e5e7eb] p-8 flex flex-col gap-8 w-full max-w-200 mx-auto">

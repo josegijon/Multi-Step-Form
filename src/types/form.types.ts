@@ -17,3 +17,5 @@ export interface FormDataType {
     // Step 4
     terms: boolean;
 }
+
+export type FormFieldValue = string | string[] | boolean;
